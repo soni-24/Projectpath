@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Myntra — Home & Living (Image-robust Clone)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --accent: #ff3f6c;
+      --muted: #6b6b7a;
+      --glass: rgba(255, 255, 255, 0.6);
+      --shadow: 0 10px 30px rgba(12, 12, 30, 0.06);
+      --radius: 14px;
+      --maxw: 1220px;
+      --nav-h: 72px;
+      --ease: cubic-bezier(.2, .9, .2, 1)
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      margin: 0;
+      background: linear-gradient(180deg, #fbfcff, var(--bg));
+      color: #111;
+      -webkit-font-smoothing: antialiased
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 20px
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(12, 12, 20, 0.04)
+    }
+
+    .nav {
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 20px
+    }
+
+    .logo {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 20px;
+      letter-spacing: 0.2px
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center
+    }
+
+    .search input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #e9e9f1;
+      outline: none;
+      transition: box-shadow .18s var(--ease)
+    }
+
+    .search input:focus {
+      box-shadow: 0 6px 20px rgba(11, 118, 255, 0.06)
+    }
+
+    nav ul {
+      display: flex;
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 600
+    }
+
+    nav a:hover {
+      background: linear-gradient(90deg, rgba(255, 63, 108, 0.06), rgba(11, 118, 255, 0.02));
+      color: #222
+    }
+
+    .icons {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .icon-btn {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 8px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .hero {
+      border-radius: 20px;
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 20px;
+      align-items: center;
+      margin-top: 18px;
+      box-shadow: var(--shadow);
+      background: linear-gradient(90deg, #fff 0, #fbfbff 60%)
+    }
+
+    .hero h1 {
+      font-size: 30px;
+      margin: 0 0 8px
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin: 0 0 14px
+    }
+
+    .cta {
+      display: flex;
+      gap: 12px
+    }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform .12s var(--ease)
+    }
+
+    .btn:hover {
+      transform: translateY(-4px)
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(255, 63, 108, 0.12)
+    }
+
+    .banner {
+      width: 100%;
+      height: 330px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(15, 15, 30, 0.06)
+    }
+
+    .banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .cats {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px
+    }
+
+    .cat-card {
+      flex: 1;
+      background: var(--card);
+      padding: 12px;
+      border-radius: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform .16s var(--ease)
+    }
+
+    .cat-card:hover {
+      transform: translateY(-6px)
+    }
+
+    .cat-card img {
+      width: 88px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #f8fafc
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 18px;
+      margin-top: 20px
+    }
+
+    aside {
+      background: transparent
+    }
+
+    .filter-card {
+      background: var(--card);
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: var(--shadow)
+    }
+
+    .filter-group {
+      margin-bottom: 12px
+    }
+
+    .filter-group h4 {
+      margin: 0 0 8px;
+      font-size: 14px
+    }
+
+    .filters label {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 4px;
+      border-radius: 8px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px
+    }
+
+    .product {
+      background: linear-gradient(180deg, #fff, var(--card));
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform .16s var(--ease)
+    }
+
+    .product:hover {
+      transform: translateY(-8px)
+    }
+
+    .product img {
+      height: 190px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #f8fafc
+    }
+
+    .p-title {
+      font-weight: 700;
+      margin-top: 10px;
+      font-size: 15px
+    }
+
+    .p-sub {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .p-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px
+    }
+
+    .price {
+      font-weight: 800
+    }
+
+    .ribbon {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      padding: 6px 8px;
+      border-radius: 8px
+    }
+
+    .prod-wrap {
+      position: relative
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px
+    }
+
+    .feature {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: var(--shadow)
+    }
+
+    .cart-drawer {
+      position: fixed;
+      right: 20px;
+      top: 110px;
+      width: 380px;
+      max-height: 76vh;
+      overflow: auto;
+      background: linear-gradient(180deg, #fff, var(--glass));
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(10, 10, 20, 0.12);
+      padding: 12px;
+      display: none;
+      z-index: 140
+    }
+
+    .cart-drawer.open {
+      display: block
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 6px;
+      border-bottom: 1px solid #f0f0f4
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 20, 0.45);
+      z-index: 200
+    }
+
+    .modal.open {
+      display: flex
+    }
+
+    .modal .card {
+      width: min(980px, 96%);
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 18px
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px
+    }
+
+    .gallery img {
+      height: 220px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #f8fafc
+    }
+
+    .specs h2 {
+      margin: 0
+    }
+
+    .specs p {
+      color: var(--muted)
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 26px 0;
+      color: var(--muted)
+    }
+
+    footer .foot-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px
+    }
+
+    @media(max-width:980px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .cats {
+        flex-direction: column
+      }
+
+      aside {
+        order: 2
+      }
+
+      nav ul {
+        display: none
+      }
+    }
+
+    @media(max-width:560px) {
+      .gallery img {
+        height: 140px
+      }
+
+      .product img {
+        height: 150px
+      }
+    }
+  </style>
+
+  <!-- Image fallback and helpers (defined early so onerror handlers can use them) -->
+  <script>
+    (function () {
+      // Simple SVG placeholder data URI
+      const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="100%" height="100%" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-family="Arial, Helvetica, sans-serif" font-size="22">Image not available</text></svg>';
+      window.PLACEHOLDER_SRC = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    })();
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="nav container">
+      <div class="logo">Myntra<span style="color:#222">Home</span></div>
+      <div class="search">
+        <input id="searchInput" placeholder="Search rugs, bedlinen, cushions, decor..." aria-label="Search products" />
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" data-route="home">Home</a></li>
+          <li><a href="#" data-route="shop">Shop</a></li>
+          <li><a href="#" data-route="about">About</a></li>
+          <li><a href="#" data-route="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="icons">
+        <div class="icon-btn" id="themeToggle" title="Toggle theme">🌙</div>
+        <div class="icon-btn" id="cartBtn" aria-haspopup="true">🛒 <span id="cartCount"
+            style="font-weight:800; margin-left:6px">0</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero" id="home-section">
+      <div>
+        <h1>Style your space — curated Home & Living</h1>
+        <p>Discover rugs, bedlinen, cushions & decor — handpicked to make your home pop. Free delivery above ₹999.</p>
+        <div class="cta">
+          <button class="btn" data-route-to="shop">Shop Now</button>
+          <button class="btn ghost" onclick="showAlert('Use the filters to refine results')">Explore Filters</button>
+        </div>
+
+        <div class="cats" aria-hidden="false">
+          <div class="cat-card" onclick="filterByCat('rugs')">
+            <img src="https://picsum.photos/id/1015/800/600" alt="Rugs" loading="lazy" decoding="async" width="800"
+              height="600">
+            <div>
+              <div style="font-weight:800">Rugs</div>
+              <div class="small" style="color:var(--muted)">Cozy & durable</div>
+            </div>
+          </div>
+
+          <div class="cat-card" onclick="filterByCat('bedsheets')">
+            <img src="https://picsum.photos/id/1025/800/600" alt="Bedsheets" loading="lazy" decoding="async" width="800"
+              height="600">
+            <div>
+              <div style="font-weight:800">Bed Linen</div>
+              <div class="small" style="color:var(--muted)">Soft & breathable</div>
+            </div>
+          </div>
+
+          <div class="cat-card" onclick="filterByCat('decor')">
+            <img src="https://picsum.photos/id/1037/800/600" alt="Decor" loading="lazy" decoding="async" width="800"
+              height="600">
+            <div>
+              <div style="font-weight:800">Decor</div>
+              <div class="small" style="color:var(--muted)">Small accents</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner" role="img" aria-label="Home living banner">
+        <img id="bannerImg" src="https://picsum.photos/id/1043/1200/800" alt="Home banner" loading="eager"
+          decoding="async" width="1200" height="800">
+      </div>
+    </section>
+
+    <!-- LAYOUT WITH FILTERS AND PRODUCTS -->
+    <section class="layout" id="shop-section" style="display:grid">
+      <aside>
+        <div class="filter-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
+            <h3 style="margin:0">Filters</h3>
+            <button class="btn ghost" onclick="resetFilters()">Reset</button>
+          </div>
+
+          <div class="filter-group">
+            <h4>Category</h4>
+            <div class="filters">
+              <label><input type="checkbox" value="rugs" onchange="applyFilters()"> Rugs</label>
+              <label><input type="checkbox" value="bedsheets" onchange="applyFilters()"> Bed Sheets</label>
+              <label><input type="checkbox" value="cushions" onchange="applyFilters()"> Cushions</label>
+              <label><input type="checkbox" value="decor" onchange="applyFilters()"> Decor</label>
+              <label><input type="checkbox" value="planters" onchange="applyFilters()"> Planters</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4>Price</h4>
+            <div class="filters">
+              <label><input type="radio" name="price" value="under500" onchange="applyFilters()"> Under ₹500</label>
+              <label><input type="radio" name="price" value="under1000" onchange="applyFilters()"> Under ₹1000</label>
+              <label><input type="radio" name="price" value="any" onchange="applyFilters()" checked> Any</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4>Sort</h4>
+            <select onchange="applySort(this.value)">
+              <option value="relevance">Relevance</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <h4>Popular</h4>
+            <div style="display:flex; gap:8px; flex-wrap:wrap">
+              <button class="btn ghost" onclick="applyQuick('new')">New</button>
+              <button class="btn ghost" onclick="applyQuick('trending')">Trending</button>
+              <button class="btn ghost" onclick="applyQuick('under999')">Under ₹999</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+          <h2 style="margin:0">All Products</h2>
+          <div class="small">Showing <span id="resultCount">0</span> results</div>
+        </div>
+
+        <!-- big featured area -->
+        <div class="featured-grid" id="featuredArea"></div>
+
+        <!-- product grid -->
+        <div id="productGrid" class="grid" aria-live="polite"></div>
+
+      </div>
+    </section>
+    <section id="about-section" style="display:none">
+  <div class="filter-card">
+    <h2>About Myntra</h2>
+    <p style="color:var(--muted)">
+      Myntra is one of India's largest and most trusted online fashion destinations, offering a curated selection of 
+      clothing, footwear, accessories, beauty, and lifestyle products from top domestic and international brands. 
+      Known for its trend-focused collections, seasonal sales, and seamless shopping experience, Myntra caters to 
+      men, women, and kids with an ever-expanding catalog that blends style, quality, and affordability.
+    </p>
+    <p style="color:var(--muted)">
+      From casual T-shirts and denim to premium watches and designer footwear, Myntra ensures there’s something 
+      for every occasion and every budget. Its user-friendly interface, smart search, and secure checkout make 
+      shopping effortless, while features like personalized recommendations and easy returns keep customers coming 
+      back.
+    </p>
+    <p style="color:var(--muted)">
+      With a vision to make fashion accessible to all, Myntra continues to set benchmarks in online retail through 
+      innovation, convenience, and a deep understanding of evolving fashion trends.
+    </p>
+  </div>
+
+  <div style="margin-top:14px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px">
+    <div class="feature">
+      <h3>Wide Selection</h3>
+      <p class="small">Thousands of styles from global and Indian brands.</p>
+    </div>
+    <div class="feature">
+      <h3>Seamless Experience</h3>
+      <p class="small">Fast search, secure payment, and easy returns.</p>
+    </div>
+    <div class="feature">
+      <h3>Style for Everyone</h3>
+      <p class="small">Fashion for men, women, kids, and every occasion.</p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- ABOUT & CONTACT PAGES -->
+   
+
+    <!-- Contact Section -->
+<section id="contact-section" style="padding:40px 0; background:#f8f9fa;">
+  <div class="contact-card">
+    <h2>📩 Contact Us</h2>
+    <p class="contact-info">
+      For custom work, email 
+      <strong style="color:#0077ff">youremail@example.com</strong> 
+      (replace before publishing).
+    </p>
+
+    <form id="contact-form">
+      <input type="text" placeholder="Your Name" name="name" required />
+      <input type="email" placeholder="Your Email" name="email" required />
+      <textarea placeholder="How can we help?" name="message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <p id="form-feedback" style="display:none; color:green; margin-top:10px;">
+      ✅ Your message has been sent successfully!
+    </p>
+  </div>
+</section>
+
+<style>
+  .contact-card {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .contact-card h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .contact-info {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  #contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #contact-form input, 
+  #contact-form textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+  }
+
+  #contact-form input:focus, 
+  #contact-form textarea:focus {
+    border-color: #ff3f6c;
+    box-shadow: 0 0 5px rgba(0, 119, 255, 0.4);
+    outline: none;
+  }
+
+  #contact-form button {
+    padding: 12px;
+    background: #ff3f6c;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  #contact-form button:hover {
+    background: #ff3f6c;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Simulate message sending
+    document.getElementById("form-feedback").style.display = "block";
+
+    // Clear form after submission
+    this.reset();
+
+    // Hide success message after 3 seconds
+    setTimeout(() => {
+      document.getElementById("form-feedback").style.display = "none";
+    }, 3000);
+  });
+</script>
+
+
+  </main>
+
+  <!-- CART DRAWER -->
+  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-label="Cart drawer">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center">
+      <div><strong>Total:</strong> ₹<span id="cartTotal">0</span></div>
+      <button class="btn" onclick="checkout()">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal" onclick="closeModal(event)">
+    <div class="card" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+      <div class="gallery" id="modalGallery"></div>
+      <div class="specs">
+        <h2 id="modalTitle">Product Title</h2>
+        <p id="modalDesc" class="small">Short description about the product. Material, care & details.</p>
+        <div style="margin-top:16px; display:flex; gap:12px; align-items:center">
+          <div style="font-size:20px; font-weight:800">₹<span id="modalPrice">0</span></div>
+          <div class="small">Inclusive of all taxes</div>
+        </div>
+        <div style="margin-top:18px; display:flex; gap:10px">
+          <button class="btn" id="addToCartBtn">Add to Cart</button>
+          <button class="btn ghost" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container">
+    <!-- <div class="foot-grid">
+      <div>
+       <h4>Company</h4>
+        <p class="small">Myntra Clone — educational demo</p>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <p class="small">Help Center • Shipping • Returns</p>
+      </div>
+      <div>
+        <h4>Payment</h4>
+        <p class="small">Cards • Netbanking • UPI</p>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <p class="small">Get style tips, new drops & offers.</p>
+      </div> -->
+    <!-- </div>  -->
+  </footer>
+
+  <script>
+    // PRODUCTS using stable picsum image endpoints — swap with your own images if you want.
+    const PRODUCTS = [
+      { id: 1, title: 'Handloom Jute Rug', cat: 'rugs', price: 1299, img: 'https://picsum.photos/id/1015/1200/800', desc: 'Eco-friendly jute rug with non-slip backing.', tags: ['trending'] },
+      { id: 2, title: 'Soft Cotton Bed Sheet Set', cat: 'bedsheets', price: 799, img: 'https://picsum.photos/id/1025/1200/800', desc: 'Breathable cotton bed sheet set.', tags: ['new'] },
+      { id: 3, title: 'Velvet Cushion Cover', cat: 'cushions', price: 349, img: 'https://picsum.photos/id/1027/1200/800', desc: 'Soft velvet cushion cover with zipper.', tags: ['trending'] },
+      { id: 4, title: 'Abstract Wall Decor', cat: 'decor', price: 499, img: 'https://picsum.photos/id/1035/1200/800', desc: 'Minimalist framed wall art.', tags: [] },
+      { id: 5, title: 'Boho Cushion Cover', cat: 'cushions', price: 299, img: 'https://picsum.photos/id/1041/1200/800', desc: 'Hand-block printed cover.', tags: [] },
+      { id: 6, title: 'Cotton Quilt', cat: 'bedsheets', price: 1599, img: 'https://picsum.photos/id/106/1200/800', desc: 'Lightweight cotton quilt for summers.', tags: ['new'] },
+      { id: 7, title: 'Round Wool Rug', cat: 'rugs', price: 2199, img: 'https://picsum.photos/id/1084/1200/800', desc: 'Hand-tufted wool rug.', tags: [] },
+      { id: 8, title: 'Ceramic Planter', cat: 'planters', price: 399, img: 'https://picsum.photos/id/1020/1200/800', desc: 'Small planter for succulents.', tags: [] },
+      { id: 9, title: 'Linen Duvet Cover', cat: 'bedsheets', price: 2199, img: 'https://picsum.photos/id/1003/1200/800', desc: 'Premium linen duvet cover.', tags: ['trending'] },
+      { id: 10, title: 'Macrame Wall Hanging', cat: 'decor', price: 699, img: 'https://picsum.photos/id/1011/1200/800', desc: 'Handmade macrame piece.', tags: ['new'] },
+      { id: 11, title: 'Knitted Throw', cat: 'decor', price: 899, img: 'https://picsum.photos/id/1012/1200/800', desc: 'Cozy knitted throw.', tags: [] },
+      { id: 12, title: 'Bath Mat Set', cat: 'decor', price: 499, img: 'https://picsum.photos/id/1013/1200/800', desc: 'Absorbent bath mats.', tags: [] },
+      { id: 13, title: 'Printed Cushion Cover', cat: 'cushions', price: 249, img: 'https://picsum.photos/id/1016/1200/800', desc: 'Vibrant printed cover.', tags: [] },
+      { id: 14, title: 'Indoor Planter Set', cat: 'planters', price: 799, img: 'https://picsum.photos/id/1018/1200/800', desc: 'Set of 3 planters.', tags: [] },
+      { id: 15, title: 'Embroidered Table Runner', cat: 'decor', price: 349, img: 'https://picsum.photos/id/1019/1200/800', desc: 'Hand-embroidered runner.', tags: [] },
+      { id: 16, title: 'Floor Cushion', cat: 'cushions', price: 1299, img: 'https://picsum.photos/id/1022/1200/800', desc: 'Large floor cushion.', tags: [] },
+      { id: 17, title: 'Minimal Table Lamp', cat: 'decor', price: 1599, img: 'https://picsum.photos/id/1024/1200/800', desc: 'Warm ambient lamp.', tags: ['trending'] },
+      { id: 18, title: 'Scented Candle Set', cat: 'decor', price: 699, img: 'https://picsum.photos/id/1028/1200/800', desc: 'Set of 3 scented candles.', tags: [] },
+      { id: 19, title: 'Rattan Basket', cat: 'decor', price: 499, img: 'https://picsum.photos/id/1032/1200/800', desc: 'Handwoven storage basket.', tags: [] },
+      { id: 20, title: 'Quilted Bedspread', cat: 'bedsheets', price: 2499, img: 'https://picsum.photos/id/1039/1200/800', desc: 'Luxury quilted bedspread.', tags: ['new'] }
+    ];
+
+    // Application state
+    let CART = [];
+    try { CART = JSON.parse(localStorage.getItem('mh_cart') || '[]'); } catch (e) { CART = []; }
+    let FILTERS = { categories: [], price: 'any', query: '', quick: null };
+    let SORT = 'relevance';
+
+    const productGrid = document.getElementById('productGrid');
+    const resultCount = document.getElementById('resultCount');
+    const featuredArea = document.getElementById('featuredArea');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderFeatured();
+      renderProducts(PRODUCTS);
+      updateCartUI();
+
+      document.getElementById('searchInput').addEventListener('input', (e) => { FILTERS.query = e.target.value.trim().toLowerCase(); applyFilters(); });
+      document.getElementById('cartBtn').addEventListener('click', toggleCart);
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      document.querySelectorAll('nav a[data-route]').forEach(a => a.addEventListener('click', navHandler));
+      document.querySelectorAll('[data-route-to]').forEach(b => b.addEventListener('click', (e) => { const route = e.currentTarget.getAttribute('data-route-to'); navigateTo(route); }));
+
+      document.addEventListener('keydown', (e) => { if (e.key && e.key.toLowerCase() === 'c') toggleCart(); });
+
+      // Verify images after initial paint to catch any network failed loads
+      setTimeout(verifyAllImages, 100);
+    });
+
+    // create image with properties consistently (robust)
+    function makeImg(src, alt = '', opts = {}) {
+      const img = document.createElement('img');
+      img.src = src || window.PLACEHOLDER_SRC;
+      img.alt = alt;
+      if (opts.loading) img.loading = opts.loading;
+      img.decoding = opts.decoding || 'async';
+      if (opts.width) img.width = opts.width;
+      if (opts.height) img.height = opts.height;
+      // important for visual fit:
+      img.style.objectFit = opts.objectFit || 'cover';
+      return img;
+    }
+
+    function renderFeatured() {
+      const picks = PRODUCTS.slice(0, 3);
+      featuredArea.innerHTML = '';
+      picks.forEach(p => {
+        const d = document.createElement('div');
+        d.className = 'feature';
+        const wrap = document.createElement('div');
+        wrap.style.display = 'flex';
+        wrap.style.gap = '12px';
+        wrap.style.alignItems = 'center';
+        const img = makeImg(p.img, p.title, { loading: 'lazy', width: 88, height: 88 });
+        img.style.width = '88px'; img.style.height = '88px'; img.style.borderRadius = '10px';
+        const info = document.createElement('div');
+        info.innerHTML = `<div style="font-weight:800">${p.title}</div><div class="small" style="color:var(--muted)">${p.desc}</div>`;
+        wrap.appendChild(img);
+        wrap.appendChild(info);
+        d.appendChild(wrap);
+        featuredArea.appendChild(d);
+      });
+    }
+
+    function renderProducts(list) {
+      productGrid.innerHTML = '';
+      resultCount.textContent = list.length;
+      list.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'product';
+        const prodWrap = document.createElement('div');
+        prodWrap.className = 'prod-wrap';
+        prodWrap.style.position = 'relative';
+
+        if (p.tags?.length) {
+          const r = document.createElement('div');
+          r.className = 'ribbon';
+          r.textContent = p.tags[0].toUpperCase();
+          prodWrap.appendChild(r);
+        }
+        const img = makeImg(p.img, p.title, { loading: 'lazy', width: 1200, height: 800 });
+        img.style.borderRadius = '10px'; img.style.width = '100%'; img.style.height = '190px';
+        prodWrap.appendChild(img);
+
+        const title = document.createElement('div');
+        title.className = 'p-title';
+        title.textContent = p.title;
+
+        const sub = document.createElement('div');
+        sub.className = 'p-sub';
+        sub.textContent = `${p.cat} · ${p.desc}`;
+
+        const prow = document.createElement('div');
+        prow.className = 'p-row';
+        // left
+        const left = document.createElement('div');
+        left.innerHTML = `<div class="price">₹${p.price}</div><div class="small">Inclusive of taxes</div>`;
+        // right - actions
+        const right = document.createElement('div');
+        right.style.display = 'flex';
+        right.style.flexDirection = 'column';
+        right.style.gap = '8px';
+        const vbtn = document.createElement('button'); vbtn.className = 'btn'; vbtn.textContent = 'View';
+        vbtn.addEventListener('click', () => openModal(p.id));
+        const abtn = document.createElement('button'); abtn.className = 'btn ghost'; abtn.textContent = 'Add';
+        abtn.addEventListener('click', () => addToCart(p.id));
+        right.appendChild(vbtn); right.appendChild(abtn);
+
+        prow.appendChild(left); prow.appendChild(right);
+
+        el.appendChild(prodWrap);
+        el.appendChild(title);
+        el.appendChild(sub);
+        el.appendChild(prow);
+
+        productGrid.appendChild(el);
+      });
+    }
+
+    // Filtering & Sorting
+    function applyFilters() { const checked = [...document.querySelectorAll('aside input[type=checkbox]:checked')].map(i => i.value); FILTERS.categories = checked; const price = document.querySelector('input[name=price]:checked')?.value || 'any'; FILTERS.price = price; let filtered = PRODUCTS.filter(p => { if (FILTERS.categories.length && !FILTERS.categories.includes(p.cat)) return false; if (FILTERS.query && !(p.title.toLowerCase().includes(FILTERS.query) || p.desc.toLowerCase().includes(FILTERS.query))) return false; if (FILTERS.price === 'under500' && p.price > 500) return false; if (FILTERS.price === 'under1000' && p.price > 1000) return false; if (FILTERS.quick === 'new' && !p.tags.includes('new')) return false; if (FILTERS.quick === 'trending' && !p.tags.includes('trending')) return false; if (FILTERS.quick === 'under999' && p.price > 999) return false; return true; }); filtered = sortProducts(filtered, SORT); renderProducts(filtered); }
+    function applySort(val) { SORT = val; applyFilters(); }
+    function resetFilters() { document.querySelectorAll('aside input').forEach(i => i.checked = false); document.querySelector('input[name=price][value=any]').checked = true; FILTERS = { categories: [], price: 'any', query: '', quick: null }; document.getElementById('searchInput').value = ''; applyFilters(); }
+    function applyQuick(mode) { FILTERS.quick = mode; applyFilters(); }
+    function filterByCat(cat) { resetFilters(); document.querySelectorAll('aside input[type=checkbox]').forEach(i => i.checked = (i.value === cat)); applyFilters(); navigateTo('shop'); }
+    function sortProducts(list, mode) { if (mode === 'price-asc') return list.slice().sort((a, b) => a.price - b.price); if (mode === 'price-desc') return list.slice().sort((a, b) => b.price - a.price); return list; }
+
+    // Modal
+    let currentModalProduct = null;
+    function openModal(id) {
+      const p = PRODUCTS.find(x => x.id === id); if (!p) return;
+      currentModalProduct = p;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalDesc').textContent = p.desc;
+      document.getElementById('modalPrice').textContent = p.price;
+      const g = document.getElementById('modalGallery'); g.innerHTML = '';
+      const img1 = makeImg(p.img, p.title, { loading: 'eager', width: 1200, height: 800 }); img1.style.height = '220px';
+      const img2 = makeImg(p.img, p.title, { loading: 'lazy', width: 1200, height: 800 }); img2.style.height = '220px';
+      g.appendChild(img1); g.appendChild(img2);
+      document.getElementById('addToCartBtn').onclick = () => { addToCart(p.id); closeModal(); };
+      document.getElementById('modal').classList.add('open');
+    }
+    function closeModal(e) { if (e && e.target === document.getElementById('modal')) { document.getElementById('modal').classList.remove('open'); } else if (!e) document.getElementById('modal').classList.remove('open'); }
+
+    // Cart
+    function addToCart(id) { const p = PRODUCTS.find(x => x.id === id); if (!p) return; const existing = CART.find(i => i.id === id); if (existing) { existing.qty++; } else { CART.push({ id: p.id, title: p.title, price: p.price, img: p.img, qty: 1 }); } saveCart(); updateCartUI(); showToast('Added to cart'); }
+    function saveCart() { try { localStorage.setItem('mh_cart', JSON.stringify(CART)); } catch (e) { } }
+    function updateCartUI() { document.getElementById('cartCount').textContent = CART.reduce((s, i) => s + i.qty, 0); const list = document.getElementById('cartItems'); list.innerHTML = ''; let total = 0; CART.forEach(it => { total += it.price * it.qty; const d = document.createElement('div'); d.className = 'cart-item'; const img = makeImg(it.img, it.title, { loading: 'lazy', width: 70, height: 70 }); img.style.width = '70px'; img.style.height = '70px'; d.innerHTML = ''; const info = document.createElement('div'); info.style.flex = '1'; info.innerHTML = `<div style="font-weight:700">${it.title}</div> <div class="small">₹${it.price} x ${it.qty}</div>`; const controls = document.createElement('div'); const inc = document.createElement('button'); inc.className = 'btn ghost'; inc.textContent = '+'; inc.onclick = () => changeQty(it.id, 1); const dec = document.createElement('button'); dec.className = 'btn ghost'; dec.textContent = '-'; dec.onclick = () => changeQty(it.id, -1); controls.appendChild(inc); controls.appendChild(dec); d.appendChild(img); d.appendChild(info); d.appendChild(controls); list.appendChild(d); }); document.getElementById('cartTotal').textContent = total; }
+    function changeQty(id, delta) { const it = CART.find(c => c.id === id); if (!it) return; it.qty += delta; if (it.qty <= 0) CART = CART.filter(c => c.id !== id); saveCart(); updateCartUI(); }
+    function toggleCart() { document.getElementById('cartDrawer').classList.toggle('open'); }
+    function checkout() { if (!CART.length) return showToast('Cart is empty'); alert('Checkout simulated. Total: ₹' + document.getElementById('cartTotal').textContent); CART = []; saveCart(); updateCartUI(); toggleCart(); }
+
+    // Utilities
+    function showToast(msg) { const t = document.createElement('div'); t.textContent = msg; t.style.position = 'fixed'; t.style.bottom = '20px'; t.style.left = '50%'; t.style.transform = 'translateX(-50%)'; t.style.background = '#111'; t.style.color = 'white'; t.style.padding = '10px 16px'; t.style.borderRadius = '10px'; t.style.zIndex = 9999; document.body.appendChild(t); setTimeout(() => t.remove(), 1000); }
+    function showAlert(msg) { alert(msg); }
+
+    // Routing & theme
+    function navigateTo(route) { document.querySelectorAll('main > section').forEach(s => s.style.display = 'none'); if (route === 'shop') document.getElementById('shop-section').style.display = 'grid'; else if (route === 'about') document.getElementById('about-section').style.display = 'block'; else if (route === 'contact') document.getElementById('contact-section').style.display = 'block'; else document.getElementById('home-section').style.display = 'grid'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function navHandler(e) { e.preventDefault(); const r = e.target.getAttribute('data-route'); navigateTo(r); }
+    function toggleTheme() { const cur = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(); document.documentElement.style.setProperty('--accent', cur === '#ff3f6c' ? '#0b76ff' : '#ff3f6c'); showToast('Theme toggled'); }
+
+    // Image verification: replace any image that failed to load with placeholder
+    function verifyAllImages() {
+      document.querySelectorAll('img').forEach(img => {
+        // If naturalWidth is 0, image didn't load
+       
+      });
+    }
+
+    // start
+    applyFilters();
+  </script>
+   <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    footer {
+      background-color: #f8f8f8;
+      border-top: 1px solid #ddd;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .footer-section h4 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #282c3f;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      color: #696b79;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: #ff3f6c;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #7e818c;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>ONLINE SHOPPING</h4>
+        <ul>
+          <li><a href="#">Men</a></li>
+          <li><a href="#">Women</a></li>
+          <li><a href="#">Kids</a></li>
+          <li><a href="#">Home & Living</a></li>
+          <li><a href="#">Beauty</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>CUSTOMER POLICIES</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">T&C</a></li>
+          <li><a href="#">Terms Of Use</a></li>
+          <li><a href="#">Track Orders</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Cancellation</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>MYNTRA APP</h4>
+        <ul>
+          <li><a href="#">Download on Google Play</a></li>
+          <li><a href="#">Download on App Store</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>ABOUT MYNTRA.COM</h4>
+        <ul>
+          <li>Myntra.com is India's largest online fashion and lifestyle store. Shop for clothing, footwear, accessories and more with great deals.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 myntra.com. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Example: Footer interaction
+    document.querySelectorAll("footer a").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        alert("This is a demo link for Myntra footer!");
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+seprade the html , css,js 
