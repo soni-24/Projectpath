@@ -1,5 +1,4 @@
 # Myntra Home Website
-# Myntra Home Website
 
 This project is a clone of the Myntra Home & Living section.  
 It is built using **HTML**, **CSS**, and **JavaScript**.  
